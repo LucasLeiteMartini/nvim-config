@@ -17,6 +17,14 @@ return {
 			json = { "jsonlint" },
 			yaml = { "yamllint" },
 			python = { "flake8" },
+			handlebars = { "djlint" },
+		}
+
+		lint.linters.djlint = {
+			args = {
+				"djlint",
+				"--profile=handlebars",
+			},
 		}
 
 		local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })
