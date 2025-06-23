@@ -33,6 +33,7 @@ return {
 					"jsonlint",
 					"yamllint",
 					"flake8",
+					"luacheck",
 				},
 			})
 		end,
