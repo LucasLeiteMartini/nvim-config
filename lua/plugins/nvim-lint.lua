@@ -22,6 +22,7 @@ return {
 		local eslint = lint.linters.eslint_d
 
 		eslint.args = {
+			"--no-config",
 			"--rule",
 			"quotes: [2, 'single']",
 			"--rule",

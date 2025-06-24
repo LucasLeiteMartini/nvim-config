@@ -23,7 +23,7 @@ return {
 						"--single-quote",
 						"--semi",
 						"--print-width",
-						"80",
+						"120",
 						"--tab-width",
 						"2",
 						"--trailing-comma",
