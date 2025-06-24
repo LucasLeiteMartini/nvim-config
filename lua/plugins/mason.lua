@@ -26,6 +26,7 @@ return {
 					"eslint_d",
 					"flake8",
 					"htmlhint",
+					"htmlbeautifier",
 					"jsonlint",
 					"luacheck",
 					"stylelint",

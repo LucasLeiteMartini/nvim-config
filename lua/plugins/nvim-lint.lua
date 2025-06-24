@@ -19,9 +19,20 @@ return {
 			python = { "flake8" },
 		}
 
-		lint.linters.eslint_d.args = {
-			"--no-config",
-			"--fix",
+		local eslint = lint.linters.eslint_d
+
+		eslint.args = {
+			"--rule",
+			"quotes: [2, 'single']",
+			"--rule",
+			"semi: [2, 'always']",
+			"--rule",
+			"no-console: [1]",
+			"--stdin",
+			"--stdin-filename",
+			function()
+				return vim.api.nvim_buf_get_name(0)
+			end,
 		}
 
 		local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })
