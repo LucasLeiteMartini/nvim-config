@@ -17,10 +17,13 @@ return {
 				"typescript",
 				"javascript",
 				"prisma",
+				"bash",
 			},
 			auto_install = true,
 			highlight = { enable = true },
 			indent = { enable = true },
 		})
+
+		vim.treesitter.language.register("bash", "zsh")
 	end,
 }
