@@ -11,10 +11,12 @@ return {
 			require("mason-lspconfig").setup({
 				ensure_installed = {
 					"cssls",
+					"emmet_language_server",
 					"html",
 					"jsonls",
 					"lua_ls",
 					"prismals",
+					"spectral",
 					"ts_ls",
 				},
 				automatic_enable = false,
@@ -23,18 +25,11 @@ return {
 			local mason_tool_installer = require("mason-tool-installer")
 			mason_tool_installer.setup({
 				ensure_installed = {
-					"eslint_d",
-					"flake8",
 					"htmlhint",
-					"htmlbeautifier",
-					"jsonlint",
-					"luacheck",
-					"stylelint",
 					"yamllint",
-					"black",
-					"isort",
-					"prettier",
+					"htmlbeautifier",
 					"stylua",
+					"prettier",
 				},
 			})
 		end,
