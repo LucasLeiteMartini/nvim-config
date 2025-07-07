@@ -3,12 +3,17 @@ return {
   event = {
     "BufReadPre",
     "BufNewFile",
+    "BufWritePost",
   },
 
   config = function()
     local lint = require("lint")
     -- Setting up linter by file type(ft)
     lint.linters_by_ft = {
+      javascript = { "biomejs" },
+      typescript = { "biomejs" },
+      go = { "staticcheck" },
+
       html = { "htmlhint" },
       yaml = { "yamllint" },
     }
