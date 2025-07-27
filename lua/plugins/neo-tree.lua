@@ -21,8 +21,8 @@ return {
     filesystem = {
       filtered_items = {
         show_hidden_count = false,
-        hide_dotfiles = false,   -- Controla a exibição de arquivos iniciados com ponto (.)
-        hide_gitignored = false, -- Esconde arquivos ignorados pelo Git
+        hide_dotfiles = true,   -- Controla a exibição de arquivos iniciados com ponto (.)
+        hide_gitignored = true, -- Esconde arquivos ignorados pelo Git
         hide_by_name = {
           ".git",
         },

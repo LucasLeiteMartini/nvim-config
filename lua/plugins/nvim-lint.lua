@@ -10,11 +10,9 @@ return {
     local lint = require("lint")
     -- Setting up linter by file type(ft)
     lint.linters_by_ft = {
-      javascript = { "biomejs" },
-      typescript = { "biomejs" },
       go = { "staticcheck" },
-
       html = { "htmlhint" },
+      python = { "mypy", "pylint" },
       yaml = { "yamllint" },
     }
 
@@ -27,7 +25,11 @@ return {
         lint.try_lint()
       end,
     })
-
+    if os.getenv("VIRTUAL_ENV") ~= nil then
+      local venv_path = os.getenv("VIRTUAL_ENV")
+      require("lint").linters.pylint.cmd = venv_path .. "/bin/pylint"
+      require("lint").linters.mypy.cmd = venv_path .. "/bin/mypy"
+    end
     vim.keymap.set("n", "<leader>l", lint.try_lint, { desc = "trigger linting for current file" })
   end,
 }

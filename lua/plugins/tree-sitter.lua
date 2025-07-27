@@ -28,6 +28,7 @@ return {
           "gomod",
           "gosum",
           "python",
+          "dockerfile",
         },
         modules = {},
         auto_install = true,

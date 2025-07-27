@@ -9,6 +9,7 @@ vim.opt.smartindent = true
 vim.g.mapleader = " "
 
 vim.opt.textwidth = 120
+vim.opt.wrap = false
 vim.filetype.add({
   filename = {
     [".env"] = "config",

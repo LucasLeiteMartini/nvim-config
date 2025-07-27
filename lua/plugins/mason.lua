@@ -11,12 +11,15 @@ return {
       require("mason-lspconfig").setup({
         ensure_installed = {
           "cssls",
+          "dockerls",
+          "docker_compose_language_service",
           "emmet_language_server",
           "gopls",
           "html",
           "jsonls",
           "lua_ls",
           "prismals",
+          "pyright",
           "ts_ls",
         },
         automatic_enable = false,
@@ -25,17 +28,31 @@ return {
       local mason_tool_installer = require("mason-tool-installer")
       mason_tool_installer.setup({
         ensure_installed = {
+          -- Python
+          "black",
+          "isort",
+          "mypy",
+          "pylint",
+
+          -- Go
           "gofumpt",
           "goimports-reviser",
           "golines",
           "gomodifytags",
-          "impl",
           "staticcheck",
           "delve",
+
+          -- HTML
           "htmlhint",
-          "yamllint",
           "htmlbeautifier",
+
+          -- YAML
+          "yamllint",
+
+          -- Lua
           "stylua",
+
+          -- JS/TS
           "prettier",
         },
       })

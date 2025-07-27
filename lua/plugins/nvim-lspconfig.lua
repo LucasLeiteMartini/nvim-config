@@ -9,9 +9,18 @@ return {
     },
   },
   config = function()
-    local capabilities = require("cmp_nvim_lsp").default_capabilities()
+    local capabilities = vim.lsp.protocol.make_client_capabilities()
+    capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 
     local lspconfig = require("lspconfig")
+
+    lspconfig.dockerls.setup({
+      capabilities = capabilities,
+    })
+    lspconfig.docker_compose_language_service.setup({
+      capabilities = capabilities,
+    })
+
     lspconfig.gopls.setup({
       filetypes = { "go", "gomod", "gowork", "gotmpl" },
       root_dir = require("lspconfig.util").root_pattern("go.work", "go.mod", ".git"),
@@ -39,7 +48,6 @@ return {
             rangeVariableTypes = true,
           },
           analyses = {
-            fieldalignment = true,
             nilness = true,
             unusedparams = true,
             unusedwrite = true,
@@ -114,6 +122,14 @@ return {
         "--stdio",
       },
       filetypes = { "json", "yaml" },
+    })
+
+    lspconfig.prismals.setup({
+      capabilities = capabilities,
+    })
+
+    lspconfig.pyright.setup({
+      capabilities = capabilities,
     })
 
     vim.diagnostic.config({
