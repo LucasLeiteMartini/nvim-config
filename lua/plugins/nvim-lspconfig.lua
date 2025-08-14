@@ -114,14 +114,13 @@ return {
     lspconfig.cssls.setup({
       capabilities = capabilities,
     })
-    lspconfig.spectral.setup({
+
+    lspconfig.jsonls.setup({
       capabilities = capabilities,
-      cmd = {
-        "node",
-        "/home/lucas/.local/share/nvim/mason/packages/spectral-language-server/spectral-1.1.4/extension/server/index.js",
-        "--stdio",
-      },
-      filetypes = { "json", "yaml" },
+    })
+
+    lspconfig.fish_lsp.setup({
+      capabilities = capabilities,
     })
 
     lspconfig.prismals.setup({

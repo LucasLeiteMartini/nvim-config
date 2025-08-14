@@ -15,6 +15,7 @@ return {
         ensure_installed = {
           "html",
           "css",
+          "fish",
           "json",
           "scss",
           "toml",

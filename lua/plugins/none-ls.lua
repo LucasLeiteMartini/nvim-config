@@ -16,6 +16,7 @@ return {
         }),
         null_ls.builtins.formatting.htmlbeautifier,
         null_ls.builtins.formatting.prisma_format,
+        null_ls.builtins.formatting.prettier.with({}),
       },
     })
   end,
