@@ -131,6 +131,10 @@ return {
       capabilities = capabilities,
     })
 
+    lspconfig.marksman.setup({
+      capabilities = capabilities,
+    })
+
     vim.diagnostic.config({
       virtual_text = true,
       signs = true,
