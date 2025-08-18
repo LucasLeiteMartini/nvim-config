@@ -1,5 +1,5 @@
 -- neotree binding
-vim.keymap.set("n", "<C-n>", ":Neotree filesystem reveal left toggle<CR>")
+vim.keymap.set("n", "<C-n>", ":Neotree filesystem reveal left toggle<CR>", { silent = true })
 
 -- vim motions in insert mode
 vim.keymap.set("i", "<C-h>", "<C-Left>")
