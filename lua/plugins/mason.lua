@@ -10,19 +10,41 @@ return {
 
       require("mason-lspconfig").setup({
         ensure_installed = {
-          "cssls",
+          --Docker
           "dockerls",
           "docker_compose_language_service",
+
+          -- Web snippets
           "emmet_language_server",
+
+          -- Fish shell lsp
           "fish_lsp",
+
+          -- GoLang
           "gopls",
+
+          -- Web related
           "html",
-          "jsonls",
-          "lua_ls",
-          "marksman",
-          "prismals",
-          "pyright",
           "ts_ls",
+          "cssls",
+
+          -- JSON
+          "jsonls",
+
+          -- YAML
+          "yamlls",
+
+          -- Lua
+          "lua_ls",
+
+          -- Markdown
+          "marksman",
+
+          -- Prisma
+          "prismals",
+
+          -- Python
+          "pyright",
         },
         automatic_enable = false,
       })

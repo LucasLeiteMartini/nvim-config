@@ -135,6 +135,10 @@ return {
       capabilities = capabilities,
     })
 
+    lspconfig.yamalls.setup({
+      capabilities = capabilities,
+    })
+
     vim.diagnostic.config({
       virtual_text = true,
       signs = true,
