@@ -34,6 +34,9 @@ return {
           -- YAML
           "yamlls",
 
+          -- TOML
+          "tombi",
+
           -- Lua
           "lua_ls",
 

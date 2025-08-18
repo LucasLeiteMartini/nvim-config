@@ -135,9 +135,8 @@ return {
       capabilities = capabilities,
     })
 
-    lspconfig.yamalls.setup({
-      capabilities = capabilities,
-    })
+    vim.lsp.enable("tombi", true)
+    vim.lsp.enable("yamlls", true)
 
     vim.diagnostic.config({
       virtual_text = true,
