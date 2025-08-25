@@ -16,7 +16,18 @@ return {
         }),
         null_ls.builtins.formatting.htmlbeautifier,
         null_ls.builtins.formatting.prisma_format,
-        null_ls.builtins.formatting.prettier.with({}),
+        null_ls.builtins.formatting.prettier.with({
+          extra_args = {
+            "--single-quote",
+            "--semi",
+            "--print-width",
+            "80",
+            "--tab-width",
+            "2",
+            "--trailing-comma",
+            "none",
+          },
+        }),
       },
     })
   end,
