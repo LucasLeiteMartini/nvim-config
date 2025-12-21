@@ -27,6 +27,7 @@ return {
           "html",
           "ts_ls",
           "cssls",
+          "angularls",
 
           -- JSON
           "jsonls",

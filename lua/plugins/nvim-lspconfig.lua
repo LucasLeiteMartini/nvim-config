@@ -137,6 +137,7 @@ return {
 
     vim.lsp.enable("tombi", true)
     vim.lsp.enable("yamlls", true)
+    vim.lsp.enable("angularls", true)
 
     vim.diagnostic.config({
       virtual_text = true,

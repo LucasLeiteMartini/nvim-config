@@ -1,14 +1,6 @@
 -- neotree binding
 vim.keymap.set("n", "<C-n>", ":Neotree filesystem reveal left toggle<CR>", { silent = true })
 
--- vim motions in insert mode
-vim.keymap.set("i", "<C-h>", "<C-Left>")
-vim.keymap.set("i", "<C-j>", "<Down>")
-vim.keymap.set("i", "<C-k>", "<Up>")
-vim.keymap.set("i", "<C-l>", "<C-Right>")
-vim.keymap.set("i", "<M-h>", "<Left>")
-vim.keymap.set("i", "<M-l>", "<Right>")
-
 -- move lines up and down
 vim.keymap.set("n", "<A-j>", ":m .+1<CR>==")
 vim.keymap.set("n", "<A-k>", ":m .-2<CR>==")
@@ -40,3 +32,6 @@ vim.keymap.set({ "n", "v" }, "<leader>i", vim.lsp.buf.format, {})
 -- qol
 vim.keymap.set("n", "<leader>v", "V", {})
 vim.keymap.set("n", "<leader>o", "O", {})
+vim.keymap.set("n", "<C-d>", "<C-d>zz")
+vim.keymap.set("n", "<C-u>", "<C-u>zz")
+vim.keymap.set("x", "<leader>p", ' "_dP ')
