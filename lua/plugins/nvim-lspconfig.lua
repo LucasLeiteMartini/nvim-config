@@ -7,23 +7,85 @@ return {
         { path = "${3rd}/luv/library", words = { "vim%.uv" } },
       },
     },
+    "saghen/blink.cmp",
   },
   config = function()
-    local capabilities = vim.lsp.protocol.make_client_capabilities()
-    capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
+    local capabilities = require("blink.cmp").get_lsp_capabilities()
 
-    local lspconfig = require("lspconfig")
+    vim.api.nvim_create_autocmd("LspAttach", {
+      callback = function(args)
+        local client = vim.lsp.get_client_by_id(args.data.client_id)
+        local opts = { buffer = args.buf, silent = true }
 
-    lspconfig.dockerls.setup({
-      capabilities = capabilities,
+        if client.name == "rust-analyzer" then
+          vim.keymap.set("n", "K", function()
+            vim.cmd.RustLsp({ "hover", "actions" })
+          end, {})
+          vim.keymap.set({ "n", "v" }, "<leader>ca", function()
+            vim.cmd.RustLsp("codeAction")
+          end, {})
+        end
+
+        if client and client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
+          vim.lsp.inlay_hint.enable(true, { bufnr = args.buf })
+        end
+      end,
     })
-    lspconfig.docker_compose_language_service.setup({
-      capabilities = capabilities,
+
+    local function enable_server(server_name, config)
+      config = config or {}
+      config.capabilities = vim.tbl_deep_extend("force", capabilities, config.capabilities or {})
+
+      vim.lsp.config[server_name] = config
+
+      vim.lsp.enable(server_name)
+    end
+
+    local default_servers = {
+      -- Web related
+      "html",
+      "cssls",
+      "ts_ls",
+      "angularls",
+
+      -- JSON
+      "jsonls",
+
+      -- FISH
+      "fish_lsp",
+
+      -- ORM
+      "prismals",
+
+      -- MARKDOWN
+      "marksman",
+
+      --DOCKER
+      "dockerls",
+      "docker_compose_language_service",
+
+      -- PYTHON
+      "pyright",
+
+      -- YAML
+      "yamlls",
+    }
+
+    for _, server in ipairs(default_servers) do
+      enable_server(server, {})
+    end
+
+    enable_server("lua_ls", {
+      settings = {
+        Lua = {
+          workspace = { checkThirdParty = false },
+          telemetry = { enable = false },
+        },
+      },
     })
 
-    lspconfig.gopls.setup({
+    enable_server("gopls", {
       filetypes = { "go", "gomod", "gowork", "gotmpl" },
-      root_dir = require("lspconfig.util").root_pattern("go.work", "go.mod", ".git"),
       settings = {
         gopls = {
           completeUnimported = true,
@@ -47,97 +109,24 @@ return {
             parameterNames = true,
             rangeVariableTypes = true,
           },
-          analyses = {
-            nilness = true,
-            unusedparams = true,
-            unusedwrite = true,
-            useany = true,
-          },
-          gofumpt = true,
+          analyses = { nilness = true, unusedparams = true, unusedwrite = true, useany = true },
           staticcheck = true,
-          directoryFilters = { "-.git", "-.vscode", "-.idea", "-.vscode-test", "-node_modules" },
-          semanticTokens = true,
+          gofumpt = true,
         },
       },
     })
-    lspconfig.lua_ls.setup({
-      capabilities = capabilities,
-    })
-    lspconfig.ts_ls.setup({
-      capabilities = capabilities,
-    })
-    lspconfig.html.setup({
-      capabilities = capabilities,
-    })
-    lspconfig.emmet_language_server.setup({
-      capabilities = capabilities,
 
-      lspconfig.emmet_language_server.setup({
-        filetypes = {
-          "css",
-          "eruby",
-          "html",
-          "javascript",
-          "javascriptreact",
-          "less",
-          "sass",
-          "scss",
-          "pug",
-          "typescript",
-          "typescriptreact",
-        },
-        -- Read more about this options in the [vscode docs](https://code.visualstudio.com/docs/editor/emmet#_emmet-configuration).
-        -- **Note:** only the options listed in the table are supported.
-        init_options = {
-          ---@type table<string, string>
-          includeLanguages = {},
-          --- @type string[]
-          excludeLanguages = {},
-          --- @type string[]
-          extensionsPath = {},
-          --- @type table<string, any> [Emmet Docs](https://docs.emmet.io/customization/preferences/)
-          preferences = {},
-          --- @type boolean Defaults to `true`
-          showAbbreviationSuggestions = true,
-          --- @type "always" | "never" Defaults to `"always"`
-          showExpandedAbbreviation = "always",
-          --- @type boolean Defaults to `false`
-          showSuggestionsAsSnippets = true,
-          --- @type table<string, any> [Emmet Docs](https://docs.emmet.io/customization/syntax-profiles/)
-          syntaxProfiles = {},
-          --- @type table<string, string> [Emmet Docs](https://docs.emmet.io/customization/snippets/#variables)
-          variables = {},
-        },
-      }),
+    enable_server("emmet_language_server", {
+      filetypes = {
+        "css",
+        "html",
+        "javascript",
+        "javascriptreact",
+        "typescript",
+        "typescriptreact",
+        "angular",
+      },
     })
-
-    lspconfig.cssls.setup({
-      capabilities = capabilities,
-    })
-
-    lspconfig.jsonls.setup({
-      capabilities = capabilities,
-    })
-
-    lspconfig.fish_lsp.setup({
-      capabilities = capabilities,
-    })
-
-    lspconfig.prismals.setup({
-      capabilities = capabilities,
-    })
-
-    lspconfig.pyright.setup({
-      capabilities = capabilities,
-    })
-
-    lspconfig.marksman.setup({
-      capabilities = capabilities,
-    })
-
-    vim.lsp.enable("tombi", true)
-    vim.lsp.enable("yamlls", true)
-    vim.lsp.enable("angularls", true)
 
     vim.diagnostic.config({
       virtual_text = true,
