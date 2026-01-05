@@ -21,17 +21,10 @@ return {
       })
       require("telescope").load_extension("ui-select")
 
-      pcall(require("telescope").load_extensio, "fzf")
-      pcall(require("telescope").load_extensio, "ui-select")
+      pcall(require("telescope").load_extension, "fzf")
+      pcall(require("telescope").load_extension, "ui-select")
 
       local builtin = require("telescope.builtin")
-
-      local function bufferFzf()
-        builtin.current_buffer_fuzzy_find(require("telescope.themes").get_dropdown({
-          winblend = 10,
-          previewer = false,
-        }))
-      end
 
       local function telescope_live_grep_open_files()
         builtin.live_grep({
@@ -40,11 +33,13 @@ return {
         })
       end
 
-      vim.keymap.set("n", "<C-p>", builtin.find_files, {})
+      vim.keymap.set("n", "<leader>ff", builtin.find_files, {})
+      vim.keymap.set("n", "<leader>bf", builtin.current_buffer_fuzzy_find, {})
+      vim.keymap.set("n", "<leader>fa", function()
+        builtin.find_files({ hidden = true, no_ignore = true })
+      end, { desc = "[F]ind [A]ll files" })
       vim.keymap.set("n", "<leader>fg", builtin.live_grep, {})
-      vim.keymap.set("n", "<leader>bf", bufferFzf, {})
-      vim.keymap.set("n", "<leader>ff", telescope_live_grep_open_files, {})
-      vim.keymap.set("n", "<leader>fb", builtin.buffers, {})
+      vim.keymap.set("n", "<leader>fG", telescope_live_grep_open_files, {})
       vim.keymap.set("n", "<leader>fb", builtin.buffers, {})
     end,
   },

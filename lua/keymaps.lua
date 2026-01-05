@@ -14,15 +14,14 @@ vim.keymap.set("n", "<C-k>", ":wincmd k<CR>")
 vim.keymap.set("n", "<C-l>", ":wincmd l<CR>")
 
 -- window split
-vim.keymap.set("n", "<C-\\>", ":vsplit<CR>")
-vim.keymap.set("n", "<C-S-\\>", ":split<CR>")
+vim.keymap.set("n", "<C-\\>", ":vsplit<CR>", { silent = true })
 
 -- save file normal/insert mode
 vim.keymap.set("n", "<C-s>", "<CMD>w<CR>")
 vim.keymap.set("i", "<C-s>", "<ESC><CMD>w<CR>")
 
 -- lsp features
-vim.keymap.set("n", "<leader>nr", vim.lsp.buf.rename, {})
+vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, {})
 vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
 vim.keymap.set("n", "gd", vim.lsp.buf.definition, {})
 vim.keymap.set("n", "gr", vim.lsp.buf.references, {})
