@@ -7,11 +7,8 @@ return {
         { path = "${3rd}/luv/library", words = { "vim%.uv" } },
       },
     },
-    "saghen/blink.cmp",
   },
   config = function()
-    local capabilities = require("blink.cmp").get_lsp_capabilities()
-
     vim.api.nvim_create_autocmd("LspAttach", {
       callback = function(args)
         local client = vim.lsp.get_client_by_id(args.data.client_id)
@@ -20,72 +17,39 @@ return {
         if client.name == "rust-analyzer" then
           vim.keymap.set("n", "K", function()
             vim.cmd.RustLsp({ "hover", "actions" })
-          end, {})
+          end, opts)
+
           vim.keymap.set({ "n", "v" }, "<leader>ca", function()
             vim.cmd.RustLsp("codeAction")
-          end, {})
-        end
-
-        if client and client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
-          vim.lsp.inlay_hint.enable(true, { bufnr = args.buf })
+          end, opts)
         end
       end,
     })
 
-    local function enable_server(server_name, config)
-      config = config or {}
-      config.capabilities = vim.tbl_deep_extend("force", capabilities, config.capabilities or {})
-
-      vim.lsp.config[server_name] = config
-
-      vim.lsp.enable(server_name)
-    end
-
-    local default_servers = {
-      -- Web related
-      "html",
-      "cssls",
-      "ts_ls",
-      "angularls",
-
-      -- JSON
-      "jsonls",
-
-      -- FISH
-      "fish_lsp",
-
-      -- ORM
-      "prismals",
-
-      -- MARKDOWN
-      "marksman",
-
-      --DOCKER
+    local default_server = {
       "dockerls",
       "docker_compose_language_service",
-
-      -- PYTHON
+      "lua_ls",
+      "ts_ls",
+      "html",
+      "emmet_language_server",
+      "cssls",
+      "jsonls",
+      "fish_lsp",
+      "prismals",
       "pyright",
-
-      -- YAML
+      "marksman",
+      "tombi",
       "yamlls",
     }
 
-    for _, server in ipairs(default_servers) do
-      enable_server(server, {})
+    for _, server in ipairs(default_server) do
+      vim.lsp.enable(server)
     end
 
-    enable_server("lua_ls", {
-      settings = {
-        Lua = {
-          workspace = { checkThirdParty = false },
-          telemetry = { enable = false },
-        },
-      },
-    })
-
-    enable_server("gopls", {
+    vim.lsp.config("gopls", {
       filetypes = { "go", "gomod", "gowork", "gotmpl" },
+      root_dir = require("lspconfig.util").root_pattern("go.work", "go.mod", ".git"),
       settings = {
         gopls = {
           completeUnimported = true,
@@ -109,22 +73,38 @@ return {
             parameterNames = true,
             rangeVariableTypes = true,
           },
-          analyses = { nilness = true, unusedparams = true, unusedwrite = true, useany = true },
-          staticcheck = true,
+          analyses = {
+            nilness = true,
+            unusedparams = true,
+            unusedwrite = true,
+            useany = true,
+          },
           gofumpt = true,
+          staticcheck = true,
+          directoryFilters = { "-.git", "-.vscode", "-.idea", "-.vscode-test", "-node_modules" },
+          semanticTokens = true,
         },
       },
     })
 
-    enable_server("emmet_language_server", {
+    vim.lsp.config("emmet_language_server", {
       filetypes = {
         "css",
+        "eruby",
         "html",
         "javascript",
         "javascriptreact",
+        "less",
+        "sass",
+        "scss",
+        "pug",
         "typescript",
         "typescriptreact",
-        "angular",
+      },
+      init_options = {
+        showAbbreviationSuggestions = true,
+        showExpandedAbbreviation = "always",
+        showSuggestionsAsSnippets = true,
       },
     })
 

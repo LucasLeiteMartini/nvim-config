@@ -49,6 +49,9 @@ return {
 
           -- Python
           "pyright",
+
+          -- Toml
+          "taplo",
         },
         automatic_enable = false,
       })
