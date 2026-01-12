@@ -6,12 +6,30 @@ return {
       formatters_by_ft = {
         go = { "gofumpt", "goimports-reviser", "golines" },
         python = { "isort", "black" },
+        html = { "htmlbeautifier" },
+        prisma = { "prisma_format" },
+        lua = { "stylua" },
+        javascript = { "biome" },
+        typescript = { "biome" },
+        javascriptreact = { "biome" },
+        typescriptreact = { "biome" },
+        json = { "biome" },
+        jsonc = { "biome" },
+        markdown = { "prettier" },
       },
       formatters = {
         black = {
           append_args = {
             "--line-length",
             "88",
+          },
+        },
+        stylua = {
+          append_args = {
+            "--indent-type",
+            "Spaces",
+            "--indent-width",
+            "2",
           },
         },
       },

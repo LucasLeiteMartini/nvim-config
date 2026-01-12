@@ -35,13 +35,17 @@ return {
         "python",
         "dockerfile",
         "rust",
+        "markdown",
+        "markdown_inline",
+        "latex",
+        "tsx",
       },
 
       modules = {},
       auto_install = true,
       highlight = { enable = true },
       indent = { enable = true },
-      ignore_install = {},
+      ignore_install = { "jsonc" },
       sync_install = false,
 
       incremental_selection = {
@@ -49,7 +53,7 @@ return {
         keymaps = {
           init_selection = "<c-space>",
           node_incremental = "<c-space>",
-          scope_incremental = "<c-s>",
+          scope_incremental = "<c-space>",
           node_decremental = "<M-space>",
         },
       },

@@ -6,7 +6,16 @@ return {
       "WhoIsSethDaniel/mason-tool-installer.nvim",
     },
     config = function()
-      require("mason").setup()
+      require("mason").setup({
+        ui = {
+          border = "rounded",
+          icons = {
+            package_installed = "✓",
+            package_pending = "➜",
+            package_uninstalled = "✗",
+          },
+        },
+      })
 
       require("mason-lspconfig").setup({
         ensure_installed = {

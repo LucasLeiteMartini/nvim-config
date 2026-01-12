@@ -9,6 +9,7 @@ return {
     },
   },
   config = function()
+    -- RUST RELATED CONFIGURATION
     vim.api.nvim_create_autocmd("LspAttach", {
       callback = function(args)
         local client = vim.lsp.get_client_by_id(args.data.client_id)
@@ -27,93 +28,89 @@ return {
     })
 
     local default_server = {
-      "dockerls",
-      "docker_compose_language_service",
-      "lua_ls",
-      "ts_ls",
-      "html",
-      "emmet_language_server",
-      "cssls",
-      "jsonls",
-      "fish_lsp",
-      "prismals",
-      "pyright",
-      "marksman",
-      "tombi",
-      "yamlls",
-    }
+      dockerls = {},
+      docker_compose_language_service = {},
+      lua_ls = {},
+      ts_ls = {},
+      html = {},
+      cssls = {},
+      jsonls = {},
+      fish_lsp = {},
+      prismals = {},
+      pyright = {},
+      marksman = {},
+      tombi = {},
+      yamlls = {},
+      angularls = {},
 
-    for _, server in ipairs(default_server) do
-      vim.lsp.enable(server)
-    end
-
-    vim.lsp.config("gopls", {
-      filetypes = { "go", "gomod", "gowork", "gotmpl" },
-      root_dir = require("lspconfig.util").root_pattern("go.work", "go.mod", ".git"),
-      settings = {
-        gopls = {
-          completeUnimported = true,
-          usePlaceholders = true,
-          codelenses = {
-            gc_details = false,
-            generate = true,
-            regenerate_cgo = true,
-            run_govulncheck = true,
-            test = true,
-            tidy = true,
-            upgrade_dependency = true,
-            vendor = true,
+      emmet_language_server = {
+        settings = {
+          filetypes = {
+            "css",
+            "eruby",
+            "html",
+            "javascript",
+            "javascriptreact",
+            "less",
+            "sass",
+            "scss",
+            "pug",
+            "typescript",
+            "typescriptreact",
           },
-          hints = {
-            assignVariableTypes = true,
-            compositeLiteralFields = true,
-            compositeLiteralTypes = true,
-            constantValues = true,
-            functionTypeParameters = true,
-            parameterNames = true,
-            rangeVariableTypes = true,
+          init_options = {
+            showAbbreviationSuggestions = true,
+            showExpandedAbbreviation = "always",
+            showSuggestionsAsSnippets = true,
           },
-          analyses = {
-            nilness = true,
-            unusedparams = true,
-            unusedwrite = true,
-            useany = true,
-          },
-          gofumpt = true,
-          staticcheck = true,
-          directoryFilters = { "-.git", "-.vscode", "-.idea", "-.vscode-test", "-node_modules" },
-          semanticTokens = true,
         },
       },
-    })
 
-    vim.lsp.config("emmet_language_server", {
-      filetypes = {
-        "css",
-        "eruby",
-        "html",
-        "javascript",
-        "javascriptreact",
-        "less",
-        "sass",
-        "scss",
-        "pug",
-        "typescript",
-        "typescriptreact",
+      gopls = {
+        filetypes = { "go", "gomod", "gowork", "gotmpl" },
+        root_dir = require("lspconfig.util").root_pattern("go.work", "go.mod", ".git"),
+        settings = {
+          gopls = {
+            completeUnimported = true,
+            usePlaceholders = true,
+            codelenses = {
+              gc_details = false,
+              generate = true,
+              regenerate_cgo = true,
+              run_govulncheck = true,
+              test = true,
+              tidy = true,
+              upgrade_dependency = true,
+              vendor = true,
+            },
+            hints = {
+              assignVariableTypes = true,
+              compositeLiteralFields = true,
+              compositeLiteralTypes = true,
+              constantValues = true,
+              functionTypeParameters = true,
+              parameterNames = true,
+              rangeVariableTypes = true,
+            },
+            analyses = {
+              nilness = true,
+              unusedparams = true,
+              unusedwrite = true,
+              useany = true,
+            },
+            gofumpt = true,
+            staticcheck = true,
+            directoryFilters = { "-.git", "-.vscode", "-.idea", "-.vscode-test", "-node_modules" },
+            semanticTokens = true,
+          },
+        },
       },
-      init_options = {
-        showAbbreviationSuggestions = true,
-        showExpandedAbbreviation = "always",
-        showSuggestionsAsSnippets = true,
-      },
-    })
+    }
 
-    vim.diagnostic.config({
-      virtual_text = true,
-      signs = true,
-      underline = true,
-      update_in_insert = false,
-      severity_sort = true,
-    })
+    for server, config in pairs(default_server) do
+      config.capabilities = require("blink.cmp").get_lsp_capabilities(config.capabilities)
+      vim.lsp.config(server, config)
+      vim.lsp.enable(server)
+    end
   end,
 }

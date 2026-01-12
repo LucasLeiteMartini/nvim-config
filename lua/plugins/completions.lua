@@ -14,42 +14,21 @@ return {
       local luasnip = require("luasnip")
       require("luasnip.loaders.from_vscode").lazy_load()
 
-      local cmp_kinds = {
-        Text = "󰉿",
-        Method = "󰆧",
-
-        Function = "󰊕",
-        Constructor = "",
-        Field = "󰜢",
-        Variable = "󰀫",
-        Class = "󰠱",
-        Interface = "",
-
-        Module = "",
-        Property = "󰜢",
-        Unit = "󰑭",
-        Value = "󰎠",
-        Enum = "",
-        Keyword = "󰌋",
-        Snippet = "",
-        Color = "󰏘",
-        File = "󰈙",
-        Reference = "󰈇",
-        Folder = "󰉋",
-        EnumMember = "",
-        Constant = "󰏿",
-
-        Struct = "󰙅",
-        Event = "",
-        Operator = "󰆕",
-        TypeParameter = "",
-      }
-
       require("blink.cmp").setup({
         appearance = {
 
-          kind_icons = cmp_kinds,
+          nerd_font_variant = "mono",
+          kind_icons = {
+            provider = "mini.icons",
+          },
           use_nvim_cmp_as_default = false,
+        },
+
+        signature = {
+          enabled = true,
+          window = {
+            border = "rounded",
+          },
         },
 
         completion = {
@@ -110,11 +89,8 @@ return {
 
           preset = "enter",
 
-          ["<C-Space>"] = { "show", "show_documentation", "hide_documentation" },
+          ["<C-a>"] = { "show", "show_documentation", "hide_documentation" },
           ["<C-e>"] = { "hide" },
-          ["<C-b>"] = { "scroll_documentation_up" },
-          ["<C-f>"] = { "scroll_documentation_down" },
-
           ["<CR>"] = { "accept", "fallback" },
         },
       })
