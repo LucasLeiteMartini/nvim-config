@@ -7,7 +7,7 @@ return {
         go = { "gofumpt", "goimports-reviser", "golines" },
         python = { "isort", "black" },
         html = { "htmlbeautifier" },
-        prisma = { "prisma_format" },
+        prisma = { "prisma-format" },
         lua = { "stylua" },
         javascript = { "biome" },
         typescript = { "biome" },
@@ -16,6 +16,7 @@ return {
         json = { "biome" },
         jsonc = { "biome" },
         markdown = { "prettier" },
+        java = { "google-java-format" },
       },
       formatters = {
         black = {
@@ -34,7 +35,7 @@ return {
         },
       },
       format_on_save = function(bufnr)
-        local ignore_filetypes = { "sql", "java" }
+        local ignore_filetypes = { "sql" }
         if vim.tbl_contains(ignore_filetypes, vim.bo[bufnr].filetype) then
           return
         end

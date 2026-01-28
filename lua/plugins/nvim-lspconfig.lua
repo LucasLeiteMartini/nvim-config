@@ -42,6 +42,7 @@ return {
         },
       },
       ts_ls = {},
+      lemminx = {},
       html = {},
       cssls = {},
       jsonls = {},
