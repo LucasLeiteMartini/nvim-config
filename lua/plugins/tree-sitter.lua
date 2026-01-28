@@ -39,6 +39,7 @@ return {
         "markdown_inline",
         "latex",
         "tsx",
+        "java",
       },
 
       modules = {},

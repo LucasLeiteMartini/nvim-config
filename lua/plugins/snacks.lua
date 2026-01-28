@@ -8,5 +8,6 @@ return {
       level = vim.log.levels.TRACE,
       style = "fancy",
     },
+    indent = { enabled = true, char = "┃" },
   },
 }

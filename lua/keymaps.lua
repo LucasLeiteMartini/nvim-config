@@ -1,7 +1,5 @@
--- Oil binding
-vim.keymap.set("n", "<C-n>", function()
-  require("oil").toggle_float()
-end, { silent = true })
+-- Neotree
+vim.keymap.set("n", "<C-n>", ":Neotree filesystem reveal left toggle<CR>", { silent = true })
 
 -- move lines up and down
 vim.keymap.set("n", "<A-j>", ":m .+1<CR>==")
