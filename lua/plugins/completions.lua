@@ -35,9 +35,9 @@ return {
           list = {
 
             selection = {
-              preselect = true,
+              preselect = false,
 
-              auto_insert = false,
+              auto_insert = true,
             },
           },
 
@@ -45,8 +45,8 @@ return {
             border = "rounded",
             draw = {
               columns = {
-                { "label",     "label_description", gap = 1 },
-                { "kind_icon", "kind",              gap = 1 },
+                { "label", "label_description", gap = 1 },
+                { "kind_icon", "kind", gap = 1 },
               },
             },
           },
@@ -78,10 +78,18 @@ return {
 
         sources = {
           default = {
+            "lazydev",
             "lsp",
             "snippets",
             "path",
             "buffer",
+          },
+          providers = {
+            lazydev = {
+              name = "LazyDev",
+              module = "lazydev.integrations.blink",
+              score_offset = 100,
+            },
           },
         },
 

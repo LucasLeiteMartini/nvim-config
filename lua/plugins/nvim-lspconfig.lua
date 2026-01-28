@@ -1,10 +1,13 @@
 return {
   "neovim/nvim-lspconfig",
   dependencies = {
-    "folke/lazydev.nvim",
-    opts = {
-      library = {
-        { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+    {
+      "folke/lazydev.nvim",
+      ft = "lua",
+      opts = {
+        library = {
+          { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+        },
       },
     },
   },
@@ -30,7 +33,14 @@ return {
     local default_server = {
       dockerls = {},
       docker_compose_language_service = {},
-      lua_ls = {},
+      lua_ls = {
+        settings = {
+          Lua = {
+            workspace = { checkThirdParty = true },
+            telemetry = { enable = false },
+          },
+        },
+      },
       ts_ls = {},
       html = {},
       cssls = {},
