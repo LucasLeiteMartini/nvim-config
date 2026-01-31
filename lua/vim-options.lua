@@ -32,20 +32,7 @@ function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
   return orig_util_open_floating_preview(contents, syntax, opts, ...)
 end
 
--- When using Windows, configure clipboard to use win32yank
-vim.g.clipboard = {
-
-  name = "win32yank",
-  copy = {
-    ["+"] = "win32yank.exe -i --crlf",
-    ["*"] = "win32yank.exe -i --crlf",
-  },
-  paste = {
-    ["+"] = "win32yank.exe -o --lf",
-    ["*"] = "win32yank.exe -o --lf",
-  },
-  cache_enabled = 0,
-}
+vim.opt.splitright = true
 
 vim.opt.mouse = "a"
 vim.opt.clipboard = "unnamedplus"
@@ -89,3 +76,5 @@ vim.diagnostic.config({
     border = "rounded",
   },
 })
+
+require("clipboard")

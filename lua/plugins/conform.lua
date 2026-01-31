@@ -16,7 +16,6 @@ return {
         json = { "biome" },
         jsonc = { "biome" },
         markdown = { "prettier" },
-        java = { "google-java-format" },
       },
       formatters = {
         black = {
