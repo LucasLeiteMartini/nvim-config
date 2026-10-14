@@ -37,7 +37,6 @@ return {
         "rust",
         "markdown",
         "markdown_inline",
-        "latex",
         "tsx",
         "java",
       },

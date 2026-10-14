@@ -39,7 +39,7 @@ return {
         builtin.find_files({ hidden = true, no_ignore = true })
       end, { desc = "[F]ind [A]ll files" })
       vim.keymap.set("n", "<leader>fg", builtin.live_grep, {})
-      vim.keymap.set("n", "<leader>fG", telescope_live_grep_open_files, {})
+      vim.keymap.set("n", "<leader>of", telescope_live_grep_open_files, {})
       vim.keymap.set("n", "<leader>fb", builtin.buffers, {})
     end,
   },

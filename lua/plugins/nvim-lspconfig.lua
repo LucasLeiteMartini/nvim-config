@@ -116,6 +116,16 @@ return {
           },
         },
       },
+      roslyn_ls = {
+        cmd = {
+          vim.fn.stdpath("data") .. "/mason/bin/roslyn-language-server",
+          "--logLevel",
+          "Information",
+          "--extensionLogDirectory",
+          "/tmp/roslyn_ls/logs",
+          "--stdio",
+        },
+      },
     }
 
     for server, config in pairs(default_server) do
