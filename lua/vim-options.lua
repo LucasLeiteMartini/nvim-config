@@ -8,7 +8,7 @@ vim.opt.softtabstop = 2
 vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
 
-vim.opt.smartindent = true
+-- vim.opt.smartindent = true
 
 vim.g.mapleader = " "
 
@@ -21,6 +21,8 @@ vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
 vim.opt.undofile = true
 
 vim.opt.incsearch = true
+
+vim.lsp.document_color.enable(true, nil, { style = "virtual" })
 
 local _border = "rounded"
 

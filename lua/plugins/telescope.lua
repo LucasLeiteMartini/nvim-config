@@ -22,6 +22,15 @@ return {
       require("telescope").load_extension("ui-select")
 
       pcall(require("telescope").load_extension, "fzf")
+      local previewer_utils = require("telescope.previewers.utils")
+      previewer_utils.ts_highlighter = function(bufnr, ft)
+        if not ft or ft == "" then
+          return false
+        end
+        local lang = vim.treesitter.language.get_lang(ft) or ft
+        local ok = pcall(vim.treesitter.start, bufnr, lang)
+        return ok
+      end
       pcall(require("telescope").load_extension, "ui-select")
 
       local builtin = require("telescope.builtin")

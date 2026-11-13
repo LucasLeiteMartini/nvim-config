@@ -1,107 +1,100 @@
 return {
-  {
-    "saghen/blink.cmp",
-    event = "InsertEnter",
-    build = "cargo build --release",
-    dependencies = {
-      "L3MON4D3/LuaSnip",
+  "saghen/blink.cmp",
+  lazy = false,
+  dependencies = {
+    "L3MON4D3/LuaSnip",
+    "saghen/blink.lib",
+    "rafamadriz/friendly-snippets",
+    "onsails/lspkind.nvim",
+  },
 
-      "rafamadriz/friendly-snippets",
-      "onsails/lspkind.nvim",
+  build = function()
+    require("blink.cmp").build():pwait()
+  end,
+
+  opts = {
+
+    appearance = {
+
+      nerd_font_variant = "mono",
+      use_nvim_cmp_as_default = false,
     },
 
-    config = function()
-      local luasnip = require("luasnip")
-      require("luasnip.loaders.from_vscode").lazy_load()
+    signature = {
+      enabled = true,
+      trigger = {
+        enabled = true,
+        show_on_trigger_character = true,
+        show_on_insert = true,
+        show_on_insert_on_trigger_character = true,
+      },
+      window = {
+        border = "rounded",
+        show_documentation = true,
+      },
+    },
 
-      require("blink.cmp").setup({
-        appearance = {
-
-          nerd_font_variant = "mono",
-          kind_icons = {
-            provider = "mini.icons",
-          },
-          use_nvim_cmp_as_default = false,
+    completion = {
+      list = {
+        selection = {
+          preselect = true,
+          auto_insert = true,
         },
+      },
 
-        signature = {
-          enabled = true,
-          window = {
-            border = "rounded",
-          },
-        },
-
-        completion = {
-          list = {
-
-            selection = {
-              preselect = true,
-
-              auto_insert = true,
-            },
-          },
-
-          menu = {
-            border = "rounded",
-            draw = {
-              columns = {
-                { "label", "label_description", gap = 1 },
-                { "kind_icon", "kind", gap = 1 },
-              },
-            },
-          },
-
-          documentation = {
-
-            auto_show = true,
-            window = {
-              border = "rounded",
-            },
+      menu = {
+        border = "rounded",
+        draw = {
+          columns = {
+            { "label", "label_description", gap = 1 },
+            { "kind_icon", "kind", gap = 1 },
           },
         },
+      },
 
-        snippets = {
-          expand = function(snippet)
-            luasnip.lsp_expand(snippet)
-          end,
-          active = function(filter)
-            return luasnip.in_snippet()
-          end,
-          jump = function(direction)
-            if direction == 1 then
-              luasnip.jump(1)
-            else
-              luasnip.jump(-1)
-            end
-          end,
+      documentation = {
+
+        auto_show = true,
+        window = {
+          border = "rounded",
         },
+      },
 
-        sources = {
-          default = {
-            "lazydev",
-            "lsp",
-            "snippets",
-            "path",
-            "buffer",
-          },
-          providers = {
-            lazydev = {
-              name = "LazyDev",
-              module = "lazydev.integrations.blink",
-              score_offset = 100,
-            },
-          },
+      accept = {
+        auto_brackets = { enabled = true },
+      },
+    },
+
+    snippets = {
+      preset = "luasnip",
+    },
+
+    sources = {
+      default = {
+        "lazydev",
+        "lsp",
+        "snippets",
+        "path",
+        "buffer",
+      },
+      providers = {
+        lazydev = {
+          name = "LazyDev",
+          module = "lazydev.integrations.blink",
+          score_offset = 100,
         },
+      },
+    },
 
-        keymap = {
+    keymap = {
+      preset = "default",
 
-          preset = "enter",
-
-          ["<C-a>"] = { "show", "show_documentation", "hide_documentation" },
-          ["<C-e>"] = { "hide" },
-          ["<CR>"] = { "accept", "fallback" },
-        },
-      })
-    end,
+      ["<C-a>"] = { "show", "show_documentation", "hide_documentation" },
+      ["<C-e>"] = { "hide" },
+      ["<C-k>"] = { "show_signature", "hide_signature" },
+      ["<Tab>"] = { "select_and_accept", "fallback" },
+      ["<C-n>"] = { "select_next" },
+      ["<C-p>"] = { "select_prev" },
+    },
   },
 }

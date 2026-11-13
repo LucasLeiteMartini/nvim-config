@@ -44,7 +44,16 @@ return {
       ts_ls = {},
       lemminx = {},
       html = {},
-      cssls = {},
+      cssls = {
+        settings = {
+          css = {
+            validate = true,
+            lint = {
+              unknownAtRules = "ignore",
+            },
+          },
+        },
+      },
       jsonls = {},
       fish_lsp = {},
       prismals = {},
@@ -116,20 +125,16 @@ return {
           },
         },
       },
-      roslyn_ls = {
-        cmd = {
-          vim.fn.stdpath("data") .. "/mason/bin/roslyn-language-server",
-          "--logLevel",
-          "Information",
-          "--extensionLogDirectory",
-          "/tmp/roslyn_ls/logs",
-          "--stdio",
-        },
+      tailwindcss = {
+        -- on_attach = function(client, bufnr)
+        --   client.server_capabilities.colorProvider = false
+        -- end,
       },
+      eslint = {},
     }
 
     for server, config in pairs(default_server) do
-      config.capabilities = require("blink.cmp").get_lsp_capabilities(config.capabilities)
+      config.capabilities = require("blink.cmp").get_lsp_capabilities(nil, true)
       vim.lsp.config(server, config)
       vim.lsp.enable(server)
     end
