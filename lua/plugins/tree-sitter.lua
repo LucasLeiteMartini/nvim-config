@@ -51,9 +51,7 @@ return {
         -- Tenta iniciar o highlight nativo do Treesitter para o buffer
         local ok = pcall(vim.treesitter.start, args.buf)
         if ok then
-          if args.match ~= "cs" then
-            vim.bo[args.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-          end
+          require("snacks.notifier").notify("Parser Iniciado.", "info")
         end
       end,
     })
